@@ -5,7 +5,10 @@
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char** arr);
+int* fullSearch(char** arr, char* word);
+int findpath();
 void searchPuzzle(char** arr, char* word);
+
 int bSize;
 
 // Main function, DO NOT MODIFY 	
@@ -70,6 +73,15 @@ void printPuzzle(char** arr) {
 
 }
 
+int* fullSearch(char** arr, char* word){
+
+    int* indexes;
+
+    //search arr for first char in word;
+
+    return indexes;
+
+}
 
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
@@ -91,6 +103,8 @@ void searchPuzzle(char** arr, char* word) {
         }
     }
     
+
+
     bool = 1;
     if (bool){
         printf("%d\n", *(*(block)));
