@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
     printPuzzle(block);
     
     // Call searchPuzzle to the word in the puzzle
-    //searchPuzzle(block, word);
+    searchPuzzle(block, word);
     
     return 0;
 }
@@ -70,11 +70,33 @@ void printPuzzle(char** arr) {
 
 }
 
+
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
     // word appears in arr, it will print out a message and the path 
     // as shown in the sample runs. If not found, it will print a 
     // different message as shown in the sample runs.
     // Your implementation here...
+    
+    int i, j, bool;
+
+
+    // Allocate space for the solution path
+    int **block = (int**)malloc(bSize * sizeof(int*));
+
+    for(i = 0; i < bSize; i++) {
+        *(block + i) = (int*)malloc(bSize * sizeof(int));
+        for (j = 0; j < bSize; ++j) {
+            *(*(block + i) + j) = 0;
+        }
+    }
+    
+    bool = 1;
+    if (bool){
+        printf("%d\n", *(*(block)));
+    }
+    else{printf("Word not found!\n");}
+
 
 }
+
