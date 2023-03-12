@@ -6,10 +6,12 @@
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char** arr);
 int* fullSearch(char** arr, char* word);
-int findpath();
+int checkNeighbors(char** puzzle, int** solution, char* word, int row, int col, int place);
 void searchPuzzle(char** arr, char* word);
 
+
 int bSize;
+
 
 // Main function, DO NOT MODIFY 	
 int main(int argc, char **argv) {
@@ -83,6 +85,32 @@ int* fullSearch(char** arr, char* word){
 
 }
 
+int checkNeighbors(char** puzzle, int** solution, char* word, int row, int col, int place){
+
+    if ( *(word) == '\0'){
+        return 1;
+    }
+
+    for (int i=row-1; i<=row+1; i++){
+        for (int j=col-1; j<=col+1; j++){
+            
+            if ((i == 0 && i == 0) || (i < 0 || i>bSize || j<0 || j>bSize)){
+                continue;
+            }
+
+            if (*(*(puzzle+i)+j) == *(word)){
+                if (checkNeighbors(puzzle, solution, word+1, i, j, place+1)){
+                    if(*(*(solution+i)+j) != 0){*(*(solution+i)+j) = *(*(solution+i)+j)*10 + place;}
+                    else{*(*(solution+i)+j) = place;}
+                    return 1;
+                }    
+            }
+        }
+    }
+    return 0;
+
+}
+
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
     // word appears in arr, it will print out a message and the path 
@@ -91,23 +119,40 @@ void searchPuzzle(char** arr, char* word) {
     // Your implementation here...
     
     int i, j, bool;
-
+    int* firstChar;
 
     // Allocate space for the solution path
-    int **block = (int**)malloc(bSize * sizeof(int*));
+    int **solution = (int**)malloc(bSize * sizeof(int*));
 
     for(i = 0; i < bSize; i++) {
-        *(block + i) = (int*)malloc(bSize * sizeof(int));
+        *(solution + i) = (int*)malloc(bSize * sizeof(int));
         for (j = 0; j < bSize; ++j) {
-            *(*(block + i) + j) = 0;
+            *(*(solution + i) + j) = 0;
         }
     }
+
+    
+    // int* firstChar;
+    // firstChar = fullSearch(arr, );
+
     
 
+    bool = checkNeighbors(arr, solution, word+1, 2, 2, 2);
 
-    bool = 1;
+    
+
     if (bool){
-        printf("%d\n", *(*(block)));
+        *(*(solution+1)+2) = 1;
+        // printf("%d\n", *(*(solution+1)+2));
+
+        for(int i = 0; i < bSize; i++) {
+		    for(int j = 0; j < bSize; j++) {
+			    printf("%d  ", *(*(solution+i)+j));
+		    }
+		    printf("\n");
+	    }
+	    printf("\n");
+
     }
     else{printf("Word not found!\n");}
 
