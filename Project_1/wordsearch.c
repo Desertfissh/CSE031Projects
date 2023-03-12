@@ -78,11 +78,34 @@ int* fullSearch(char** arr, char* word){
     int* indexes;
 
     //search arr for first char in word;
+    for(int i = 0; i < bSize; i++) {
+		for(int j = 0; j < bSize; j++) {
+            if(*(*(arr+i)+j) == *(word)) {// character youre looking at is the first character of the word
+                printf("%c ", *(*(arr+i)+j));
+            }
+			
+		}
+		printf("\n");
+	}
+
 
     return indexes;
 
 }
+char* upcase(char* str) {
+    char* p;
+    char* result;
+    result = (char*)malloc(strlen(str)+1);
+    strcpy(result,str);
+    for(p = result; *p != '\0'; p++) {
+        if(*p >= 'a' && *p <= 'z') {
+            *p += 'A' - 'a';
+        }
+    }
+    return result;
+    
 
+}
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
     // word appears in arr, it will print out a message and the path 
@@ -102,6 +125,8 @@ void searchPuzzle(char** arr, char* word) {
             *(*(block + i) + j) = 0;
         }
     }
+    word = upcase(word);
+    fullSearch(arr, word);
     
 
 
