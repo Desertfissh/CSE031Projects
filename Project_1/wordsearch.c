@@ -88,25 +88,30 @@ char* upcase(char* str) {
 
 int fullSearch(char** arr, int** solution, char* word){
     int bool = 0;
+    
     //search arr for first char in word;
     for(int i = 0; i < bSize; i++) {
 		for(int j = 0; j < bSize; j++) {
             if(*(*(arr+i)+j) == *(word)) {// character youre looking at is the first character of the word
                 if (checkNeighbors(arr, solution, word+1, i, j, 2)){
-                    if(*(*(solution+i)+j) != 0){*(*(solution+i)+j) = *(*(solution+i)+j)*10 + 1;}
-                    else{*(*(solution+i)+j) = 1;}
+                    if(*(*(solution+i)+j) != 0){
+                        *(*(solution+i)+j) = *(*(solution+i)+j)*10 + 1;
+                    }
+                    else{
+                        *(*(solution+i)+j) = 1;
+                    }
                     bool = 1;
                 }
-            }
-			
+            }	
 		}
 	}
-    return 1;
+    return bool;
 
 }
    
 
 int checkNeighbors(char** puzzle, int** solution, char* word, int row, int col, int place){
+
 
     if ( *(word) == '\0'){
         return 1;
@@ -115,14 +120,18 @@ int checkNeighbors(char** puzzle, int** solution, char* word, int row, int col, 
     for (int i=row-1; i<=row+1; i++){
         for (int j=col-1; j<=col+1; j++){
             
-            if ((i == row && j == col) || (i < 0 || i>bSize || j<0 || j>bSize)){
+            if ((i == row && j == col) || (i < 0 || i>=bSize || j<0 || j>=bSize)){
                 continue;
             }
 
             if (*(*(puzzle+i)+j) == *(word)){
                 if (checkNeighbors(puzzle, solution, word+1, i, j, place+1)){
-                    if(*(*(solution+i)+j) != 0){*(*(solution+i)+j) = *(*(solution+i)+j)*10 + place;}
-                    else{*(*(solution+i)+j) = place;}
+                    if(*(*(solution+i)+j) != 0){
+                        *(*(solution+i)+j) = *(*(solution+i)+j)*10 + place;
+                    }
+                    else{
+                        *(*(solution+i)+j) = place;
+                    }
                     return 1;
                 }    
             }
@@ -156,6 +165,7 @@ void searchPuzzle(char** arr, char* word) {
 
     if (fullSearch(arr, solution, word)){
         printf("Word Found!\n");
+        printf("Printing the search path:\n");
         for(int i = 0; i < bSize; i++) {
 		    for(int j = 0; j < bSize; j++) {
 			    printf("%-10d", *(*(solution+i)+j));
